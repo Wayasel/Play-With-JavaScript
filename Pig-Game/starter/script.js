@@ -13,14 +13,27 @@ const BtnRoll = document.querySelector('.btn--roll');
 const BtnHold = document.querySelector('.btn--hold');
 
 //Starting Condingon
-score0El.textContent=0;
-score1El.textContent=0;
-diceEl.classList.add('hidden');
-let CurrentScore=0;
-let ActivePlayer=0;
-const Scores=[0, 0];
-let Playing = true;
 
+
+let CurrentScore,ActivePlayer, Scores, Playing;
+const Init=function(){
+    score0El.textContent=0;
+    score1El.textContent=0;
+    Current0El.textContent=0
+    Current1El.textContent=0
+
+    CurrentScore=0;
+    ActivePlayer=0;
+    Scores=[0, 0];
+    Playing = true;
+
+    diceEl.classList.add('hidden');
+    Player0El.classList.remove('player--winner')
+    Player1El.classList.remove('player--winner')
+    Player0El.classList.add('player--active')
+    Player1El.classList.remove('player--active')
+ }
+ Init();
 const SwithPlayer= function(){
     document.getElementById(`current--${ActivePlayer}`).textContent=0;
     CurrentScore=0;
@@ -58,7 +71,7 @@ BtnHold.addEventListener('click',function(){
         Scores[ActivePlayer] += CurrentScore;
         document.getElementById(`score--${ActivePlayer}`).textContent =  Scores[ActivePlayer];
 
-        if(Scores[ActivePlayer]>=20){
+        if(Scores[ActivePlayer]>=100){
             Playing=false;
             diceEl.classList.add('hidden');
             document.querySelector(`.player--${ActivePlayer}`).classList.add('player--winner');
@@ -68,3 +81,5 @@ BtnHold.addEventListener('click',function(){
         }
     }
 })
+
+BtnNew.addEventListener('click',Init)
